@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { db } from './firebase';
+import React, {useEffect} from 'react';
+import {db} from './firebase';
 
 const App = () => {
 	useEffect(() => {
 		db.collection('users')
 			.get()
-			.then((querySnapshot) => {
+			.then(querySnapshot => {
 				for (const doc of querySnapshot.docs) {
 					console.log(doc.id);
 					console.log(doc.data());
 				}
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.error('Error adding document:', error);
 			});
 	}, []);
@@ -21,12 +21,12 @@ const App = () => {
 			.add({
 				first: 'Ada',
 				last: 'Lovelace',
-				born: 1815,
+				born: 1815
 			})
-			.then((docRef) => {
+			.then(docRef => {
 				console.log('Document written with ID:', docRef.id);
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.error('Error adding document:', error);
 			});
 	};

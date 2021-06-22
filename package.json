@@ -20,7 +20,8 @@
 		"build": "react-scripts build",
 		"test": "xo && react-scripts test",
 		"eject": "react-scripts eject",
-		"deploy": "firebase deploy"
+		"deploy": "firebase deploy",
+	  	"lint": "xo"
 	},
 	"browserslist": {
 		"production": [
@@ -50,23 +51,11 @@
 		]
 	},
 	"prettier": {
-		"trailingComma": "es5",
+		"trailingComma": "none",
 		"tabWidth": 4,
 		"semi": true,
-		"singleQuote": true
-	},
-	"xo": {
-		"rules": {
-			"@typescript-eslint/restrict-template-expressions": [
-				"warn"
-			],
-			"@typescript-eslint/no-unsafe-member-access": [
-				"warn"
-			],
-			"@typescript-eslint/no-unsafe-call": [
-				"warn"
-			],
-			"unicorn/filename-case": "off"
-		}
+		"singleQuote": true,
+	  	"bracketSpacing": false,
+	  	"arrowParens": "avoid"
 	}
 }

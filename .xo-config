@@ -9,6 +9,8 @@
 		"@typescript-eslint/no-unsafe-call": [
 			"warn"
 		],
-		"unicorn/filename-case": "off"
+		"unicorn/filename-case": "off",
+		arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }]
+		"capitalized-comments": ["error", "never"]
 	}
 }

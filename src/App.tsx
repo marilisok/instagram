@@ -1,44 +1,21 @@
-import React, {useEffect} from 'react';
-import {db} from './firebase';
+import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Layout from './components/Layout';
 
-const App = () => {
-	useEffect(() => {
-		db.collection('users')
-			.get()
-			.then(querySnapshot => {
-				for (const doc of querySnapshot.docs) {
-					console.log(doc.id);
-					console.log(doc.data());
-				}
-			})
-			.catch(error => {
-				console.error('Error adding document:', error);
-			});
-	}, []);
-
-	const handleClick = () => {
-		db.collection('users')
-			.add({
-				first: 'Ada',
-				last: 'Lovelace',
-				born: 1815
-			})
-			.then(docRef => {
-				console.log('Document written with ID:', docRef.id);
-			})
-			.catch(error => {
-				console.error('Error adding document:', error);
-			});
-	};
-
-	return (
-		<div className="App">
-			<header className="App-header">Instagram</header>
-			<button type="button" onClick={handleClick}>
-				Add user
-			</button>
-		</div>
-	);
-};
-
+const App = () => (
+	<Router>
+		<Layout>
+			<Switch>
+				<Route path="/profile">
+					<Profile />
+				</Route>
+				<Route path="/">
+					<Home />
+				</Route>
+			</Switch>
+		</Layout>
+	</Router>
+);
 export default App;

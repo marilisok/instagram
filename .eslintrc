@@ -1,0 +1,25 @@
+{
+  "extends": [
+	"xo",
+	"xo-react",
+	"prettier"
+  ],
+  "rules": {
+//	"@typescript-eslint/restrict-template-expressions": [
+//	  "warn"
+//	],
+//	"@typescript-eslint/no-unsafe-member-access": [
+//	  "warn"
+//	],
+//	"@typescript-eslint/no-unsafe-call": [
+//	  "warn"
+//	],
+	"arrow-body-style": "off",
+	"react/prop-types": ["warn"],
+	"react/jsx-curly-brace-presence": "off",
+	"react/jsx-no-constructed-context-values": "off",
+	"react/prefer-read-only-props": ["warn"],
+	"unicorn/filename-case": "off",
+	"capitalized-comments": ["error", "never"]
+  }
+}

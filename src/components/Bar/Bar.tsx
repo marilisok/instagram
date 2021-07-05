@@ -1,11 +1,18 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {
+	createStyles,
+	makeStyles,
+	Theme,
+	useTheme
+} from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {Link as RouterLink} from 'react-router-dom';
-import {Grid} from '@material-ui/core';
+import clsx from 'clsx';
+import { Link as RouterLink } from 'react-router-dom';
+import { Grid, useMediaQuery } from '@material-ui/core';
+import { app } from '../../firebase';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -13,11 +20,17 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			flexGrow: 1,
 			display: 'flex',
-			justifyContent: 'center'
+			justifyContent: 'center',
+			position: 'sticky',
+			top: 0,
+			zIndex: 1
 		},
 		content: {
 			padding: '0 80px',
 			color: 'white'
+		},
+		contentDownXS: {
+			padding: '0 16px'
 		},
 		title: {
 			flexGrow: 1
@@ -28,13 +41,28 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const Bar = () => {
+export const Bar = () => {
+	const theme = useTheme();
+	const isDownXS = useMediaQuery(theme.breakpoints.down('xs'));
+
 	const classes = useStyles();
+
+	const handleSignOut = () => {
+		app.auth()
+			.signOut()
+			.then()
+			.catch(err => console.log(err));
+	};
 
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
-				<Toolbar className={classes.content}>
+				<Toolbar
+					className={clsx({
+						[classes.content]: true,
+						[classes.contentDownXS]: isDownXS
+					})}
+				>
 					<Grid container>
 						<Grid item xs={6}>
 							<Typography variant="h6" className={classes.title}>
@@ -54,14 +82,23 @@ const Bar = () => {
 								color="inherit"
 								className={classes.link1}
 							>
-								Лента
+								Feed
 							</Link>
 							<Link
 								component={RouterLink}
 								to="/profile"
 								color="inherit"
+								className={classes.link1}
 							>
-								Профиль
+								Profile
+							</Link>
+							<Link
+								color="inherit"
+								onClick={() => {
+									handleSignOut();
+								}}
+							>
+								Sign out
 							</Link>
 						</Grid>
 					</Grid>
@@ -70,5 +107,3 @@ const Bar = () => {
 		</div>
 	);
 };
-
-export default Bar;

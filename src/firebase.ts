@@ -1,14 +1,17 @@
 import firebase from 'firebase';
 
-firebase.initializeApp({
-	apiKey: 'AIzaSyCdULcMsO6M_9k9V0NHPsOQRsnTyFNAvOU',
-	authDomain: 'instagram-edeab.firebaseapp.com',
-	projectId: 'instagram-edeab',
-	storageBucket: 'instagram-edeab.appspot.com',
-	messagingSenderId: '183003570377',
-	appId: '1:183003570377:web:7aa11a53113c20884e2d18'
+const app = firebase.initializeApp({
+	apiKey: process.env.REACT_APP_FIREBASE_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+	databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID
 });
+
+const auth = firebase.auth();
 
 const db = firebase.firestore();
 
-export {db};
+export { db, auth, app };

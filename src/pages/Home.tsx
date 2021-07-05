@@ -1,28 +1,26 @@
-import React, {useEffect} from 'react';
-import {db} from '../firebase';
-import PostForFeed from '../components/Posts/PostForFeed';
+import React from 'react';
+import { PostForFeed } from '../components/Posts/PostForFeed';
 
 const PostProps = {
 	img1: '/static/images/cards/card1.jpeg',
 	img2: '/static/images/cards/card2.jpeg'
 };
 
-const Home = () => {
-	useEffect(() => {
-		db.collection('users')
-			.get()
-			.then(querySnapshot => {
-				for (const doc of querySnapshot.docs) {
-					console.log(doc.id);
-					console.log(doc.data());
-				}
-			})
-			.catch(error => {
-				console.error('Error adding document:', error);
-			});
-	}, []);
-
-	// A const handleClick = () => {
+export const Home = () => {
+	// useEffect(() => {
+	// 	db.collection('users')
+	// 		.get()
+	// 		.then(querySnapshot => {
+	// 			for (const doc of querySnapshot.docs) {
+	// 				console.log(doc.id);
+	// 				console.log(doc.data());
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('Error adding document:', error);
+	// 		});
+	// }, []);
+	// const handleClick = () => {
 	// 	db.collection('users')
 	// 		.add({
 	// 			first: 'Ada',
@@ -39,10 +37,9 @@ const Home = () => {
 
 	return (
 		<div className="App">
-			<PostForFeed image={PostProps.img1} />
-			<PostForFeed image={PostProps.img2} />
+			{Object.values(PostProps).map(img => (
+				<PostForFeed key={img} image={img} />
+			))}
 		</div>
 	);
 };
-
-export default Home;

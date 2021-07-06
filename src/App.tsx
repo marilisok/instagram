@@ -1,44 +1,28 @@
-import React, {useEffect} from 'react';
-import {db} from './firebase';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Profile } from './pages/Profile/Profile';
+import { Layout } from './components/Layout';
+import { SignIn } from './components/Login/SignIn';
+import { AuthProvider } from './Auth';
+import { PrivateRoute } from './PrivateRoute';
+import SignUp from './components/Login/SignUp';
 
-const App = () => {
-	useEffect(() => {
-		db.collection('users')
-			.get()
-			.then(querySnapshot => {
-				for (const doc of querySnapshot.docs) {
-					console.log(doc.id);
-					console.log(doc.data());
-				}
-			})
-			.catch(error => {
-				console.error('Error adding document:', error);
-			});
-	}, []);
-
-	const handleClick = () => {
-		db.collection('users')
-			.add({
-				first: 'Ada',
-				last: 'Lovelace',
-				born: 1815
-			})
-			.then(docRef => {
-				console.log('Document written with ID:', docRef.id);
-			})
-			.catch(error => {
-				console.error('Error adding document:', error);
-			});
-	};
-
-	return (
-		<div className="App">
-			<header className="App-header">Instagram</header>
-			<button type="button" onClick={handleClick}>
-				Add user
-			</button>
-		</div>
-	);
-};
-
-export default App;
+export const App = () => (
+	<AuthProvider>
+		<Router>
+			<Layout>
+				<Switch>
+					<PrivateRoute exact path="/" component={Home} />
+					<PrivateRoute exact path="/profile" component={Profile} />
+					<Route exact path="/login/sign-in">
+						<SignIn />
+					</Route>
+					<Route exact path="/login/sign-up">
+						<SignUp />
+					</Route>
+				</Switch>
+			</Layout>
+		</Router>
+	</AuthProvider>
+);
